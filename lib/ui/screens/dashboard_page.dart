@@ -1,4 +1,5 @@
-import '../../ui/widgets/task_list.dart';
+import '../widgets/tasks/task_details.dart';
+import '../widgets/tasks/task_list.dart';
 
 import '../../bloc/cubit/dashboard/kdrawer_controller.dart';
 import '../responsive.dart';
@@ -27,9 +28,14 @@ class DashboardPage extends StatelessWidget {
                 child: SideMenu(),
               ),
             Expanded(
-              flex: 4,
+              flex: 2,
               child: TaskList(),
             ),
+            if (Responsive.isDesktop(context))
+              Expanded(
+                flex: 2,
+                child: TaskDetails(),
+              )
           ],
         ),
       ),

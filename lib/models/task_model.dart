@@ -1,4 +1,3 @@
-import 'package:done_list/shared/theme.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,7 @@ enum Area {
 }
 
 enum Mood {
-  none(Icon(Icons.abc_outlined, color: Color(0xff566CDC))),
+  none(SizedBox(width: 20)),
   verySad(Icon(Icons.sentiment_very_dissatisfied, color: Color(0xffEB819C))),
   sad(Icon(Icons.sentiment_dissatisfied, color: Color(0xffF27D81))),
   neutral(Icon(Icons.sentiment_neutral, color: Color(0xff566CDC))),
