@@ -1,3 +1,4 @@
+import 'package:done_list/shared/theme.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -22,15 +23,15 @@ enum Area {
 }
 
 enum Mood {
-  none(Icons.sentiment_neutral),
-  verySad(Icons.sentiment_very_dissatisfied),
-  sad(Icons.sentiment_dissatisfied),
-  neutral(Icons.sentiment_neutral),
-  happy(Icons.sentiment_satisfied),
-  veryHappy(Icons.sentiment_very_dissatisfied);
+  none(Icon(Icons.abc_outlined, color: Color(0xff566CDC))),
+  verySad(Icon(Icons.sentiment_very_dissatisfied, color: Color(0xffEB819C))),
+  sad(Icon(Icons.sentiment_dissatisfied, color: Color(0xffF27D81))),
+  neutral(Icon(Icons.sentiment_neutral, color: Color(0xff566CDC))),
+  happy(Icon(Icons.sentiment_satisfied, color: Color(0xff8BD97B))),
+  veryHappy(Icon(Icons.sentiment_very_satisfied, color: Color(0xffE1D773)));
 
-  const Mood(this.iconData);
-  final IconData iconData;
+  const Mood(this.icon);
+  final Widget icon;
 }
 
 enum Priority {

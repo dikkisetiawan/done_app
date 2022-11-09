@@ -50,13 +50,11 @@ class _TaskState extends State<Task> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '1h   ',
+                  widget.task.duration.toString(),
                   style: greyTextStyle.copyWith(fontSize: 12.0),
                 ),
-                Icon(
-                  Icons.emoji_emotions_rounded,
-                  color: kPrimaryColor,
-                )
+                SizedBox(width: 5),
+                widget.task.mood!.icon,
               ],
             ),
           ),

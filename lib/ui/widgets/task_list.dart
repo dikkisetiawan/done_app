@@ -18,6 +18,22 @@ class TaskList extends StatefulWidget {
 class _TaskListState extends State<TaskList> {
   final taskListKey = GlobalKey();
 
+  void dummyCreateTask() {
+    context.read<TaskCubit>().createTask(TaskModel(
+        title: 'Task kedua',
+        area: Area.secondArea,
+        duration: '8h',
+        mood: Mood.veryHappy,
+        priority: Priority.level3));
+
+    context.read<TaskCubit>().createTask(TaskModel(
+        title: 'Task ketiga',
+        area: Area.personal,
+        duration: '6h',
+        mood: Mood.happy,
+        priority: Priority.level4));
+  }
+
   @override
   void initState() {
     //load existing tasks when logged in
@@ -39,6 +55,7 @@ class _TaskListState extends State<TaskList> {
     return Center(
       child: Container(
         margin: EdgeInsets.all(defaultMargin),
+        padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: kSecondaryColor,
           borderRadius:
