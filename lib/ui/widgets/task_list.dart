@@ -1,65 +1,79 @@
-// import 'package:done_list/services/all_task.dart';
-// import 'package:done_list/ui/widgets/task.dart';
-// import 'package:flutter/material.dart';
-// import '../../models/task_model.dart';
-// import '../../shared/theme.dart';
+import '../../bloc/cubit/task_cubit.dart';
 
-// class TaskList extends StatelessWidget {
-//   var textFieldController = TextEditingController();
-//   TaskList({super.key});
+import '../../models/task_model.dart';
+import '/shared/theme.dart';
 
-//   //create task input field
-//   Widget taskInputField() {
-//     return ListTile(
-//       leading: IconButton(
-//           onPressed: () {},
-//           icon: Icon(
-//             Icons.radio_button_unchecked_outlined,
-//             color: kPrimaryColor,
-//           )),
-//       title: TextField(
-//         controller: textFieldController,
-//         onSubmitted: (value) {
-//           textFieldController.clear();
-//           //insertTodo(nextTodoIndex++, TaskItem(title: value));
-//         },
-//         cursorColor: kPrimaryColor,
-//         style: whiteTextStyle,
-//         decoration: InputDecoration(
-//             border: InputBorder.none,
-//             hintText: 'What have you done today?',
-//             hintStyle: greyTextStyle.copyWith(fontSize: 14),
-//             counterStyle: greyTextStyle.copyWith(fontSize: 14)),
-//       ),
-//     );
-//   }
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-//   Widget buildTask(TaskModel task, int index, Animation<double> animation) =>
-//       Task(
-//         task: task,
-//         animation: animation,
-//         onClicked: () {},
-//       );
+import 'task.dart';
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: double.infinity,
-//       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-//       child: Column(
-//         children: [
-//           AnimatedList(
-//             padding: const EdgeInsets.only(top: 5),
-//             physics: const BouncingScrollPhysics(),
-//             shrinkWrap: true, //mandatory
-//             initialItemCount: AllTask().getAllTask.length,
-//             itemBuilder: (context, index, animation) =>
-//                 buildTask(AllTask().getAllTask[index], index, animation),
-//           ),
-//           taskInputField(),
-//           const SizedBox(height: 300)
-//         ],
-//       ),
-//     );
-//   }
-// }
+class TaskList extends StatefulWidget {
+  TaskList({super.key});
+
+  @override
+  State<TaskList> createState() => _TaskListState();
+}
+
+class _TaskListState extends State<TaskList> {
+  final taskListKey = GlobalKey();
+
+  @override
+  void initState() {
+    //load existing tasks when logged in
+    context.read<TaskCubit>().fetchTasksByCurrentUser();
+    super.initState();
+  }
+
+  Widget buildTask(TaskModel task, int index, Animation<double> animation) =>
+      Task(
+        task: task,
+        animation: animation,
+        onClicked: (value) {
+          print('clicked');
+        },
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.all(defaultMargin),
+        decoration: BoxDecoration(
+          color: kSecondaryColor,
+          borderRadius:
+              const BorderRadius.all(Radius.circular(defaultCircular)),
+        ),
+        child: BlocBuilder<TaskCubit, TaskState>(
+          builder: (context, state) {
+            if (state is TaskLoading) {
+              return CircularProgressIndicator();
+            } else if (state is TaskSuccess) {
+              if (state.tasks.length == 0) {
+                return Text('Kamu belum memiliki Task');
+              } else {
+                return AnimatedList(
+                    key: taskListKey,
+                    padding: EdgeInsets.only(top: 0),
+                    physics: BouncingScrollPhysics(),
+                    initialItemCount: state.tasks.length,
+                    itemBuilder: (context, index, animation) {
+                      return Center(
+                        child: buildTask(state.tasks[index], index, animation),
+                      );
+                    });
+              }
+            }
+
+            return Center(
+              child: Text(
+                state.toString(),
+                style: whiteTextStyle,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

@@ -9,6 +9,9 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(defaultCircular), // <-- Radius
+      ),
       elevation: 0,
       backgroundColor: kSecondaryColor,
       child: SingleChildScrollView(

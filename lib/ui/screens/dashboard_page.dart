@@ -1,3 +1,5 @@
+import '../../ui/widgets/task_list.dart';
+
 import '../../bloc/cubit/dashboard/kdrawer_controller.dart';
 import '../responsive.dart';
 import '/bloc/cubit/task_cubit.dart';
@@ -15,7 +17,6 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      key: context.read<KdrawerController>().scaffoldKey,
       drawer: SideMenu(),
       body: SafeArea(
         child: Row(
@@ -27,36 +28,7 @@ class DashboardPage extends StatelessWidget {
               ),
             Expanded(
               flex: 4,
-              child: SingleChildScrollView(
-                child: BlocBuilder<TaskCubit, TaskState>(
-                  builder: (context, state) {
-                    if (state is TaskLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (state is TaskSuccess) {
-                      if (state.tasks.length == 0) {
-                        return Center(
-                          child: Text('Kamu belum memiliki Task'),
-                        );
-                      } else {
-                        return ListView.builder(
-                            itemCount: state.tasks.length,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                            ),
-                            itemBuilder: (context, index) {
-                              return Text(state.tasks[index].title.toString());
-                            });
-                      }
-                    }
-
-                    return Center(
-                      child: Text('Transaction Page'),
-                    );
-                  },
-                ),
-              ),
+              child: TaskList(),
             ),
           ],
         ),

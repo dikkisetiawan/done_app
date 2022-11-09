@@ -37,3 +37,4 @@ FontWeight extraBold = FontWeight.w800;
 FontWeight black = FontWeight.w900;
 
 const defaultCircular = 20.0;
+const defaultMargin = 30.0;
