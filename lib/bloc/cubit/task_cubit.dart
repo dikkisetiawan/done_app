@@ -10,61 +10,61 @@ class TaskCubit extends Cubit<TaskState> {
 
   void createTask(TaskModel task) async {
     try {
-      emit(TaskLoading());
+      emit(FetchTaskLoading());
       await TaskService().createTask(task);
-      emit(TaskSuccess([]));
+      emit(FetchAllTaskSuccess([]));
       print('success create task');
     } catch (e) {
-      emit(TaskFailed(e.toString()));
+      emit(FetchTaskFailed(e.toString()));
       print(e);
     }
   }
 
   void fetchTasksByCurrentUser() async {
     try {
-      emit(TaskLoading());
+      emit(FetchTaskLoading());
 
       List<TaskModel> tasks = await TaskService().fetchTasksByCurrentUser();
 
-      emit(TaskSuccess(tasks));
+      emit(FetchAllTaskSuccess(tasks));
       print('success fetch task');
     } catch (e) {
-      emit(TaskFailed(e.toString()));
+      emit(FetchTaskFailed(e.toString()));
       print(e);
     }
   }
 
   void getTaskById(String id) async {
     try {
-      emit(TaskLoading());
+      emit(FetchTaskLoading());
 
-      TaskModel tasks = await TaskService().getTaskById(id);
+      TaskModel task = await TaskService().getTaskById(id);
 
-      emit(TaskSuccess([tasks]));
+      emit(FetchTaskByIdSuccess(task));
     } catch (e) {
-      emit(TaskFailed(e.toString()));
+      emit(FetchTaskFailed(e.toString()));
     }
   }
 
   void UpdateTaskById(TaskModel task) async {
     try {
-      emit(TaskLoading());
+      emit(FetchTaskLoading());
       await TaskService().UpdateTaskById(task);
-      emit(TaskSuccess([]));
+      emit(FetchAllTaskSuccess([]));
     } catch (e) {
-      emit(TaskFailed(e.toString()));
+      emit(FetchTaskFailed(e.toString()));
     }
   }
 
   void deleteTaskById(String id) async {
     try {
-      emit(TaskLoading());
+      emit(FetchTaskLoading());
 
       await TaskService().deleteTaskById(id);
 
-      emit(TaskSuccess([]));
+      emit(FetchAllTaskSuccess([]));
     } catch (e) {
-      emit(TaskFailed(e.toString()));
+      emit(FetchTaskFailed(e.toString()));
     }
   }
 }

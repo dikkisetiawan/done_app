@@ -1,4 +1,6 @@
-import '../widgets/tasks/task_details.dart';
+import 'package:done_list/bloc/cubit/dashboard/dashboard_rigth_side_cubit.dart';
+
+import 'task_details.dart';
 import '../widgets/tasks/task_list.dart';
 
 import '../../bloc/cubit/dashboard/kdrawer_controller.dart';
@@ -32,9 +34,23 @@ class DashboardPage extends StatelessWidget {
               child: TaskList(),
             ),
             if (Responsive.isDesktop(context))
-              Expanded(
-                flex: 2,
-                child: TaskDetails(),
+              BlocBuilder<DashboardRightSideCubit, DashboardRightSideState>(
+                builder: (context, state) {
+                  print(state.runtimeType);
+                  if (state is RightSideInitial) {
+                    return SizedBox.shrink();
+                  } else if (state is RightSideTaskDetailsOpened ||
+                      state is FetchTaskByIdForRightSideSuccess) {
+                    return Expanded(
+                      flex: 3,
+                      child: TaskDetails(),
+                    );
+                  } else if (state is RightSideClosed) {
+                    return SizedBox.shrink();
+                  }
+
+                  return SizedBox.shrink();
+                },
               )
           ],
         ),

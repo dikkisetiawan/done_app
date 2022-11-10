@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 enum Status {
   open(Colors.cyan),
-  done(Colors.cyan),
-  automate(Colors.cyan),
-  delegate(Colors.cyan),
-  eliminate(Colors.cyan),
-  procastinate(Colors.cyan);
+  done(Colors.green),
+  automate(Colors.blue),
+  delegate(Colors.orange),
+  eliminate(Colors.red),
+  procastinate(Colors.grey);
 
   const Status(this.color);
   final Color color;

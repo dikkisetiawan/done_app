@@ -9,21 +9,30 @@ abstract class TaskState extends Equatable {
 
 class TaskInitial extends TaskState {}
 
-class TaskLoading extends TaskState {}
+class FetchTaskLoading extends TaskState {}
 
-class TaskSuccess extends TaskState {
+class FetchAllTaskSuccess extends TaskState {
   final List<TaskModel> tasks;
 
-  TaskSuccess(this.tasks);
+  FetchAllTaskSuccess(this.tasks);
 
   @override
   List<Object> get props => [tasks];
 }
 
-class TaskFailed extends TaskState {
+class FetchTaskByIdSuccess extends TaskState {
+  final TaskModel task;
+
+  FetchTaskByIdSuccess(this.task);
+
+  @override
+  List<Object> get props => [task];
+}
+
+class FetchTaskFailed extends TaskState {
   final String error;
 
-  const TaskFailed(this.error);
+  const FetchTaskFailed(this.error);
 
   @override
   // TODO: implement props
