@@ -46,7 +46,7 @@ class TaskService {
   }
 
 //read by taskidd
-  Future<TaskModel> getTaskById(String id) async {
+  Future<TaskModel> fetchTaskById(String? id) async {
     try {
       DocumentSnapshot snapshot = await _taskReference.doc(id).get();
       return TaskModel(

@@ -26,10 +26,10 @@ Future<void> main() async {
           messagingSenderId: "1094521801399",
           projectId: "priority-done"));
 
-  await FirebaseFirestore.instance.enablePersistence();
+  // await FirebaseFirestore.instance.enablePersistence();
 
-  FirebaseFirestore.instance.settings =
-      const Settings(persistenceEnabled: true);
+  // FirebaseFirestore.instance.settings =
+  //     const Settings(persistenceEnabled: true);
 
   runApp(MyApp());
 }

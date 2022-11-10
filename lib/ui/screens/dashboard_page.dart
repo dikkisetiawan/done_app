@@ -39,8 +39,7 @@ class DashboardPage extends StatelessWidget {
                   print(state.runtimeType);
                   if (state is RightSideInitial) {
                     return SizedBox.shrink();
-                  } else if (state is RightSideTaskDetailsOpened ||
-                      state is FetchTaskByIdForRightSideSuccess) {
+                  } else if (state is FetchTaskByIdForRightSideSuccess) {
                     return Expanded(
                       flex: 3,
                       child: TaskDetails(),

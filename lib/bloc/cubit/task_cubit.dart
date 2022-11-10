@@ -38,7 +38,7 @@ class TaskCubit extends Cubit<TaskState> {
     try {
       emit(FetchTaskLoading());
 
-      TaskModel task = await TaskService().getTaskById(id);
+      TaskModel task = await TaskService().fetchTaskById(id);
 
       emit(FetchTaskByIdSuccess(task));
     } catch (e) {
