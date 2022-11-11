@@ -17,8 +17,9 @@ class KtextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+    return Container(
+      padding:
+          const EdgeInsets.symmetric(vertical: 10, horizontal: defaultMargin),
       child: TextFormField(
         controller: controller,
         onFieldSubmitted: onFieldSubmitted,

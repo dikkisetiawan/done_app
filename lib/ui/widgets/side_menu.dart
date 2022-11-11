@@ -20,7 +20,7 @@ class SideMenu extends StatelessWidget {
         // it enables scrolling
         child: Column(
           children: [
-            //DrawerHeader(child: Logo()),
+            DrawerHeader(child: Logo()),
             Divider(
                 indent: 30, endIndent: 30, color: kGreyColor, thickness: 1.0),
             DrawerListTile(
