@@ -20,6 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
+      //name: 'Done List App',
       options: const FirebaseOptions(
           apiKey: "AIzaSyBBMZwTMLVRYCyphaa1WDlknggp97x-ONw",
           appId: "1:1094521801399:web:e1b9643c8571d467639b32",

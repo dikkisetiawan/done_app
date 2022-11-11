@@ -1,4 +1,5 @@
-import 'package:done_list/bloc/cubit/dashboard/dashboard_rigth_side_cubit.dart';
+import '/bloc/cubit/dashboard/dashboard_rigth_side_cubit.dart';
+import 'package:draggable_home/draggable_home.dart';
 
 import 'task_details.dart';
 import '../widgets/tasks/task_list.dart';
@@ -18,50 +19,54 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      drawer: SideMenu(),
-      body: SafeArea(
-        child: Row(
-          children: [
-            if (Responsive.isDesktop(context))
-              Expanded(
-                flex: 1,
-                child: SideMenu(),
-              ),
-            Expanded(
-              flex: 2,
-              child: TaskList(),
-            ),
-            if (Responsive.isDesktop(context))
-              BlocBuilder<DashboardRightSideCubit, DashboardRightSideState>(
-                builder: (context, state) {
-                  print(state.runtimeType);
-                  if (state is RightSideInitial) {
-                    return SizedBox.shrink();
-                  } else if (state is FetchTaskByIdForRightSideSuccess) {
-                    return Expanded(
-                      flex: 3,
-                      child: TaskDetails(),
-                    );
-                  } else if (state is RightSideClosed) {
-                    return SizedBox.shrink();
-                  }
-
-                  return SizedBox.shrink();
-                },
-              )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Text('Sign Out'),
+    return SafeArea(
+      child: DraggableHome(
+        drawer: SideMenu(),
         backgroundColor: kBackgroundColor,
-        onPressed: () {
-          context.read<AuthCubit>().signOut();
-          Navigator.pushNamed(context, '/');
-          print('sudah di push');
-        },
+        title: SizedBox(),
+        headerWidget: SizedBox(),
+        body: [
+          Row(
+            children: [
+              if (Responsive.isDesktop(context))
+                // Expanded(
+                //   flex: 1,
+                //   child: SideMenu(),
+                // ),
+                Expanded(
+                  flex: 2,
+                  child: TaskList(),
+                ),
+              if (Responsive.isDesktop(context))
+                BlocBuilder<DashboardRightSideCubit, DashboardRightSideState>(
+                  builder: (context, state) {
+                    print(state.runtimeType);
+                    if (state is RightSideInitial) {
+                      return SizedBox.shrink();
+                    } else if (state is FetchTaskByIdForRightSideSuccess) {
+                      return Expanded(
+                        flex: 3,
+                        child: TaskDetails(),
+                      );
+                    } else if (state is RightSideClosed) {
+                      return SizedBox.shrink();
+                    }
+
+                    return SizedBox.shrink();
+                  },
+                )
+            ],
+          )
+        ],
+        floatingActionButton: FloatingActionButton(
+          child: Text('Sign Out'),
+          backgroundColor: kBackgroundColor,
+          onPressed: () {
+            context.read<AuthCubit>().signOut();
+            Navigator.pushNamed(context, '/');
+            print('sudah di push');
+          },
+        ),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import '/shared/theme.dart';
 import 'package:flutter/material.dart';
 
+import 'logo.dart';
+
 class SideMenu extends StatelessWidget {
   const SideMenu({
     Key? key,
@@ -18,12 +20,7 @@ class SideMenu extends StatelessWidget {
         // it enables scrolling
         child: Column(
           children: [
-            SizedBox(
-              height: 60,
-              child: DrawerHeader(
-                child: FlutterLogo(),
-              ),
-            ),
+            //DrawerHeader(child: Logo()),
             Divider(
                 indent: 30, endIndent: 30, color: kGreyColor, thickness: 1.0),
             DrawerListTile(
